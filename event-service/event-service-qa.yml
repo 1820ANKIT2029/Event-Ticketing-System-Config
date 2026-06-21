@@ -1,0 +1,14 @@
+spring:
+  profiles: qa
+  datasource:
+    url: jdbc:mysql://mysql-event-qa:3306/event_service_qa
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${EVENT_DB_USERNAME:event}
+    password: ${EVENT_DB_PASSWORD:password}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

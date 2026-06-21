@@ -1,0 +1,14 @@
+spring:
+  profiles: qa
+  datasource:
+    url: jdbc:mysql://mysql-payment-qa:3306/payment_service_qa
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${PAYMENT_DB_USERNAME:payment}
+    password: ${PAYMENT_DB_PASSWORD:password}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

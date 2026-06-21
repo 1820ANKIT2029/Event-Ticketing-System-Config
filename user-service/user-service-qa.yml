@@ -1,0 +1,14 @@
+spring:
+  profiles: qa
+  datasource:
+    url: jdbc:mysql://mysql-user-qa:3306/user_service_qa
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${USER_DB_USERNAME:user}
+    password: ${USER_DB_PASSWORD:password}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

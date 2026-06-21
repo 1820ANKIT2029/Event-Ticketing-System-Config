@@ -1,0 +1,5 @@
+spring:
+  profiles: dev
+analytics:
+  processor:
+    enabled: false

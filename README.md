@@ -1,2 +1,5 @@
 # Event-Ticketing-System-Config
-Configuration for microservice Ticket Booking System
+
+Configuration repository for an event ticket booking microservices system.
+
+Includes Spring Boot YAML profiles for services such as Eureka, Gateway, Config, User, Event, Booking, Payment, Search, Analytics, and Notification.

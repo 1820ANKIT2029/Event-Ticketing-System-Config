@@ -1,7 +1,7 @@
 spring:
-  profiles: prod
+  profiles: qa
   datasource:
-    url: jdbc:mysql://mysql-search:3306/search_service
+    url: jdbc:mysql://mysql-search-qa:3306/search_service_qa
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${SEARCH_DB_USERNAME:search}
     password: ${SEARCH_DB_PASSWORD:password}

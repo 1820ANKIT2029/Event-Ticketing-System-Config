@@ -1,0 +1,14 @@
+spring:
+  profiles: qa
+  datasource:
+    url: jdbc:mysql://mysql-booking-qa:3306/booking_service_qa
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${BOOKING_DB_USERNAME:booking}
+    password: ${BOOKING_DB_PASSWORD:password}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

@@ -1,7 +1,7 @@
 spring:
-  profiles: prod
+  profiles: qa
   datasource:
-    url: jdbc:mysql://mysql-notification:3306/notification_service
+    url: jdbc:mysql://mysql-notification-qa:3306/notification_service_qa
     driverClassName: com.mysql.cj.jdbc.Driver
     username: ${NOTIFICATION_DB_USERNAME:notification}
     password: ${NOTIFICATION_DB_PASSWORD:password}
@@ -12,10 +12,3 @@ spring:
     hibernate:
       ddl-auto: validate
     show-sql: false
-notification:
-  email:
-    smtp:
-      host: ${SMTP_HOST:smtp.example.com}
-      port: ${SMTP_PORT:587}
-      username: ${SMTP_USERNAME}
-      password: ${SMTP_PASSWORD}

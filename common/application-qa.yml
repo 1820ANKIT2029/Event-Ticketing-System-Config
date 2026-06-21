@@ -1,8 +1,8 @@
 spring:
-  profiles: dev
+  profiles: qa
 logging:
   level:
-    org.springframework: DEBUG
+    root: INFO
 management:
   endpoints:
     web:

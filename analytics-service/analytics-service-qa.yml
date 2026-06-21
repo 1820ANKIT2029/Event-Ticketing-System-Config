@@ -1,0 +1,14 @@
+spring:
+  profiles: qa
+  datasource:
+    url: jdbc:mysql://mysql-analytics-qa:3306/analytics_service_qa
+    driverClassName: com.mysql.cj.jdbc.Driver
+    username: ${ANALYTICS_DB_USERNAME:analytics}
+    password: ${ANALYTICS_DB_PASSWORD:password}
+  h2:
+    console:
+      enabled: false
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: false

@@ -1,5 +1,5 @@
 spring:
-  profiles: prod
+  profiles: qa
 logging:
   level:
     org.springframework.cloud.gateway: INFO

@@ -1,0 +1,95 @@
+server:
+  port: 8087
+  forward-headers-strategy: framework
+spring:
+  application:
+    name: gateway-service
+  cloud:
+    gateway:
+      server:
+        webflux:
+          routes:
+            - id: event-service
+              uri: lb://event-service
+              predicates:
+                - Path=/event/**
+              filters:
+                - RewritePath=/event/(?<segment>.*), /${segment}
+            - id: booking-service
+              uri: lb://booking-service
+              predicates:
+                - Path=/booking/**
+              filters:
+                - RewritePath=/booking/(?<segment>.*), /${segment}
+            - id: user-service
+              uri: lb://user-service
+              predicates:
+                - Path=/user/**,/auth/**
+              filters:
+                - RewritePath=/user/(?<segment>.*), /${segment}
+            - id: payment-service
+              uri: lb://payment-service
+              predicates:
+                - Path=/payment/**
+              filters:
+                - RewritePath=/payment/(?<segment>.*), /${segment}
+            - id: notification-service
+              uri: lb://notification-service
+              predicates:
+                - Path=/notification/**
+              filters:
+                - RewritePath=/notification/(?<segment>.*), /${segment}
+            - id: search-service
+              uri: lb://search-service
+              predicates:
+                - Path=/search/**
+              filters:
+                - RewritePath=/search/(?<segment>.*), /${segment}
+            - id: analytics-service
+              uri: lb://analytics-service
+              predicates:
+                - Path=/analytics/**
+              filters:
+                - RewritePath=/analytics/(?<segment>.*), /${segment}
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins:
+                  - "http://localhost:3000"
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowedHeaders:
+                  - "*"
+                allowCredentials: true
+      config:
+        enabled: false
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka/
+  instance:
+    hostname: localhost
+jwt:
+  secret: ${JWT_SECRET:82a3beb52b097b3fab2628cb35162a4c767833a91c257a16f6ec69de88b98284}
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+    urls:
+      - name: Event Service
+        url: /event/v3/api-docs
+      - name: Booking Service
+        url: /booking/v3/api-docs
+      - name: User Service
+        url: /user/v3/api-docs
+      - name: Payment Service
+        url: /payment/v3/api-docs
+      - name: Notification Service
+        url: /notification/v3/api-docs
+      - name: Search Service
+        url: /search/v3/api-docs
+      - name: Analytics Service
+        url: /analytics/v3/api-docs
