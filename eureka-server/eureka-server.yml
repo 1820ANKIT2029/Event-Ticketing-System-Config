@@ -3,11 +3,6 @@ server:
 spring:
   application:
     name: 'eureka-server'
-  cloud:
-    config:
-      uri: "optional:configserver:http://localhost:8888/"
-  config:
-    import: optional:configserver:http://localhost:8888/
 eureka:
   client:
     register-with-eureka: false
