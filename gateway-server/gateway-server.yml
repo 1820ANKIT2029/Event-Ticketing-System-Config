@@ -1,52 +1,67 @@
 server:
   port: 8087
   forward-headers-strategy: framework
+
 spring:
   application:
-    name: gateway-server
+    name: 'gateway-service'
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE:dev}
+
   cloud:
     gateway:
       server:
         webflux:
+          default-filters:
+            - name: CircuitBreaker
+              args:
+                name: globalCircuitBreaker
+                fallbackUri: forward:/fallback/global
           routes:
             - id: event-service
-              uri: lb://event-service
+              uri: lb://EVENT-SERVICE
               predicates:
                 - Path=/event/**
               filters:
                 - RewritePath=/event/(?<segment>.*), /${segment}
+
             - id: booking-service
-              uri: lb://booking-service
+              uri: lb://BOOKING-SERVICE
               predicates:
                 - Path=/booking/**
               filters:
                 - RewritePath=/booking/(?<segment>.*), /${segment}
+
             - id: user-service
-              uri: lb://user-service
+              uri: lb://USER-SERVICE
               predicates:
                 - Path=/user/**,/auth/**
               filters:
                 - RewritePath=/user/(?<segment>.*), /${segment}
+
             - id: payment-service
-              uri: lb://payment-service
+              uri: lb://PAYMENT-SERVICE
               predicates:
                 - Path=/payment/**
               filters:
                 - RewritePath=/payment/(?<segment>.*), /${segment}
+
             - id: notification-service
-              uri: lb://notification-service
+              uri: lb://NOTIFICATION-SERVICE
               predicates:
                 - Path=/notification/**
               filters:
                 - RewritePath=/notification/(?<segment>.*), /${segment}
+
             - id: search-service
-              uri: lb://search-service
+              uri: lb://SEARCH-SERVICE
               predicates:
                 - Path=/search/**
               filters:
                 - RewritePath=/search/(?<segment>.*), /${segment}
+
             - id: analytics-service
-              uri: lb://analytics-service
+              uri: lb://ANALYTICS-SERVICE
               predicates:
                 - Path=/analytics/**
               filters:
@@ -65,16 +80,48 @@ spring:
                 allowedHeaders:
                   - "*"
                 allowCredentials: true
-      config:
-        enabled: false
+
+    config:
+      enabled: true
+      uri: "optional:configserver:http://localhost:8888/"
+  config:
+    import: optional:configserver:http://localhost:8888/
+
+resilience4j:
+  circuitbreaker:
+    configs:
+      default:
+        slidingWindowSize: 20
+        slidingWindowType: COUNT_BASED
+        minimumNumberOfCalls: 10
+        failureRateThreshold: 50
+        slowCallRateThreshold: 75
+        slowCallDurationThreshold: 2s
+        waitDurationInOpenState: 15s
+        permittedNumberOfCallsInHalfOpenState: 5
+    instances:
+      globalCircuitBreaker:
+        baseConfig: default
+
+  timelimiter:
+    configs:
+      default:
+        timeoutDuration: 3s # Global timeout for any downstream service call
+    instances:
+      globalCircuitBreaker:
+        baseConfig: default
+
 eureka:
   client:
     service-url:
       defaultZone: http://localhost:8761/eureka/
   instance:
     hostname: localhost
+
+# openssl rand -hex 32
 jwt:
   secret: ${JWT_SECRET:82a3beb52b097b3fab2628cb35162a4c767833a91c257a16f6ec69de88b98284}
+
 springdoc:
   swagger-ui:
     path: /swagger-ui.html
