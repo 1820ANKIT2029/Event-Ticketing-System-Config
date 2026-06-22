@@ -1,5 +1,3 @@
-spring:
-  profiles: qa
 logging:
   level:
     root: INFO
