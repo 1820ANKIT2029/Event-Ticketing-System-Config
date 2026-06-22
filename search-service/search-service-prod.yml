@@ -1,5 +1,4 @@
 spring:
-  profiles: prod
   datasource:
     url: jdbc:mysql://mysql-search:3306/search_service
     driverClassName: com.mysql.cj.jdbc.Driver

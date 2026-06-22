@@ -1,5 +1,4 @@
 spring:
-  profiles: prod
   datasource:
     url: jdbc:mysql://mysql-notification:3306/notification_service
     driverClassName: com.mysql.cj.jdbc.Driver

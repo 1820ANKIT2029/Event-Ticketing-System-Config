@@ -1,6 +1,4 @@
 spring:
-  profiles: prod
-spring:
   datasource:
     url: jdbc:postgresql://postgres-event:5432/event_service
     driverClassName: org.postgresql.Driver
