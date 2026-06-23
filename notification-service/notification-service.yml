@@ -37,4 +37,6 @@ spring:
         spring.deserializer.key.delegate.class: org.apache.kafka.common.serialization.StringDeserializer
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
 
+        spring.json.type.mapping: com.ankit.booking_service.dto.NotificationEvent:com.ankit.notification_service.dto.NotificationEvent
+
         spring.json.trusted.packages: "*"
