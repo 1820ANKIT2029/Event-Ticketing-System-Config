@@ -19,7 +19,6 @@ spring:
     hibernate:
       ddl-auto: update
     show-sql: true
-    
   kafka:
     bootstrap-servers: localhost:9092
 
@@ -39,8 +38,3 @@ spring:
         spring.deserializer.value.delegate.class: org.springframework.kafka.support.serializer.JsonDeserializer
 
         spring.json.trusted.packages: "*"
-        
-    producer:
-      bootstrap-servers: localhost:9092
-      key-serializer: org.apache.kafka.common.serialization.StringSerializer
-      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
