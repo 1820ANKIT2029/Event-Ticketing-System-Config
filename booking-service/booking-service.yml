@@ -51,6 +51,19 @@ eureka:
   instance:
     hostname: localhost
 
+resilience4j:
+  timelimiter:
+    instances:
+      PaymentClientcreatePaymentPaymentRequestDTO:
+        timeout-duration: 60s
+
+  circuitbreaker:
+    instances:
+      PaymentClientcreatePaymentPaymentRequestDTO:
+        sliding-window-size: 10
+        minimum-number-of-calls: 5
+        failure-rate-threshold: 50
+
 logging:
   level:
     org.springframework.cloud.openfeign: DEBUG
