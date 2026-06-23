@@ -3,7 +3,7 @@ server:
   forward-headers-strategy: framework
 spring:
   application:
-    name: payment-service
+    name: 'payment-service'
   datasource:
     url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
