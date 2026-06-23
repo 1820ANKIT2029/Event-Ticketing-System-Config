@@ -41,6 +41,15 @@ spring:
         spring.json.type.mapping: com.ankit.payment_service.dto.PaymentEvent:com.ankit.booking_service.dto.PaymentEvent
 
         spring.json.trusted.packages: "*"
+        
+    retry:
+      topic:
+        enabled: true
+        attempts: 4
+        delay: 2000ms
+        multiplier: 2.0
+        max-delay: 10000ms
+        
   cloud:
     openfeign:
       circuitbreaker:
