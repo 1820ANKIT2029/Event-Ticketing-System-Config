@@ -30,7 +30,7 @@ spring:
 
       properties:
         spring.json.add.type.headers: false
-        spring.json.trusted.packages: "com.ankit.payment_service.dto"
+        spring.json.trusted.packages: "*"
 
     producer:
       bootstrap-servers: localhost:9092
@@ -39,7 +39,6 @@ spring:
 
       properties:
         spring.json.add.type.headers: false
-        spring.json.trusted.packages: "com.ankit.payment_service.dto"
 
 razorpay:
   key_id: ${RAZORPAYa_KEY_ID}
