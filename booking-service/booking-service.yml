@@ -75,11 +75,29 @@ resilience4j:
   circuitbreaker:
     configs:
       default:
-        sliding-window-size: 10
-        minimum-number-of-calls: 5
+        # Window Mechanics
+        sliding-window-type: COUNT_BASED
+        sliding-window-size: 20
+        minimum-number-of-calls: 10
+        
+        # Failure vs. Latency Thresholds
         failure-rate-threshold: 50
+        slow-call-rate-threshold: 50
+        slow-call-duration-threshold: 2s 
+        
+        # Recovery Mechanics
         wait-duration-in-open-state: 15s
         permitted-number-of-calls-in-half-open-state: 3
+        automatic-transition-from-open-to-half-open-enabled: true
+        
+        # Exception Filtering (Assuming standard Feign exceptions)
+        record-exceptions:
+          - feign.RetryableException
+          - java.util.concurrent.TimeoutException
+          - java.io.IOException
+        ignore-exceptions:
+          - feign.FeignException.BadRequest
+          - feign.FeignException.NotFound
 
 logging:
   level:
