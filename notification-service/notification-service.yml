@@ -29,6 +29,7 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.add.type.headers: false
+        spring.json.trusted.packages: "*"
 
     producer:
       bootstrap-servers: localhost:9092
@@ -36,4 +37,3 @@ spring:
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.add.type.headers: false
-        spring.json.trusted.packages: "com.example.notification-service.dto"
