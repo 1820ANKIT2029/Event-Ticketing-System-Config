@@ -29,15 +29,13 @@ spring:
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
         spring.json.add.type.headers: false
-        spring.json.trusted.packages: "com.ankit.booking_service.dto"
+        spring.json.trusted.packages: "*"
     producer:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
         spring.json.add.type.headers: false
-        spring.json.trusted.packages: "com.ankit.booking_service.dto"
-
 
   cloud:
     openfeign:
