@@ -1,32 +1,25 @@
 server:
   port: 8088
   forward-headers-strategy: framework
+
 spring:
   application:
-    name: notification-service
-    
+    name: 'notification-service'
+
   datasource:
-    url: jdbc:h2:mem:notificationdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    url: jdbc:h2:mem:testdb
     driverClassName: org.h2.Driver
     username: sa
     password: ''
-    hikari:
-      maximum-pool-size: 10
-      minimum-idle: 2
-      idle-timeout: 30000
-      max-lifetime: 1800000
-      connection-timeout: 30000
   h2:
     console:
       enabled: true
-      
   jpa:
     database-platform: org.hibernate.dialect.H2Dialect
     hibernate:
       ddl-auto: update
-      format_sql: true
     show-sql: true
-    
+
   kafka:
     consumer:
       bootstrap-servers: localhost:9092
@@ -35,65 +28,12 @@ spring:
       key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
       value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
       properties:
-        spring.json.trusted.packages: "com.ankit.notification_service.dto"
+        spring.json.add.type.headers: false
+
     producer:
       bootstrap-servers: localhost:9092
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
       properties:
+        spring.json.add.type.headers: false
         spring.json.trusted.packages: "com.example.notification-service.dto"
-
-  mail:
-    host: ${SMTP_HOST:smtp.example.com}
-    port: ${SMTP_PORT:587}
-    username: ${SMTP_USERNAME:mail}
-    password: ${SMTP_PASSWORD:password}
-    properties:
-      mail:
-        smtp:
-          auth: true
-          starttls:
-            enable: true
-            required: true
-          connectiontimeout: 5000
-          timeout: 5000
-          writetimeout: 5000
-        ssl:
-          trust: ${SMTP_HOST:smtp.example.com}
-          
-notification:
-  email:
-    from: ${NOTIFICATION_EMAIL_FROM:no-reply@tickets.example.com}
-    default-template: booking-confirmation
-    retry:
-      max-attempts: 3
-      initial-interval: 1500
-      multiplier: 2.0
-    async: true
-  sms:
-    enabled: false
-    provider: twilio
-    account-sid: ${TWILIO_SID:}
-    auth-token: ${TWILIO_TOKEN:}
-    from-number: ${TWILIO_FROM:+1234567890}
-    
-eureka:
-  client:
-    service-url:
-      defaultZone: http://localhost:8761/eureka/
-  instance:
-    hostname: localhost
-    
-management:
-  endpoints:
-    web:
-      exposure:
-        include: health,info,metrics,prometheus
-  endpoint:
-    health:
-      show-details: always
-logging:
-  level:
-    com.example.notification: DEBUG
-    org.springframework.mail: INFO
-    org.springframework.web: INFO
