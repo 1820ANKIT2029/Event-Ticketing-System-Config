@@ -1,3 +1,47 @@
-logging:
-  level:
-    org.springframework.cloud.gateway: INFO
+spring:
+  cloud:
+    gateway:
+      server:
+        webflux:
+          default-filters:
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 50
+                redis-rate-limiter.burstCapacity: 100
+                key-resolver: "#{@userIdKeyResolver}"
+
+            - name: RequestRateLimiter
+              args:
+                redis-rate-limiter.replenishRate: 5000
+                redis-rate-limiter.burstCapacity: 10000
+                key-resolver: "#{@globalKeyResolver}"
+
+          globalcors:
+            cors-configurations:
+              '[/**]':
+                allowedOrigins:
+                  # - https://ticketbooking.com
+                  # - https://www.ticketbooking.com
+                  - http://localhost:3000
+                allowedMethods:
+                  - GET
+                  - POST
+                  - PUT
+                  - DELETE
+                  - OPTIONS
+                allowedHeaders:
+                  - "*"
+                allowCredentials: true
+
+  data:
+    redis:
+      host: redis
+      port: 6379
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
+  instance:
+    prefer-ip-address: true

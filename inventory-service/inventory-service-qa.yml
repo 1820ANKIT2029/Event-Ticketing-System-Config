@@ -1,9 +1,9 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres:5432/user_db
+    url: jdbc:postgresql://postgres:5432/inventory_db
     driver-class-name: org.postgresql.Driver
-    username: ${USER_DB_USERNAME:user_service_user}
-    password: ${USER_DB_PASSWORD:user_service_user}
+    username: ${USER_DB_USERNAME:inventory_service_user}
+    password: ${USER_DB_PASSWORD:inventory_service_user}
 
   jpa:
     hibernate:
