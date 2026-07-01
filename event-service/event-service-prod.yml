@@ -1,6 +1,21 @@
 spring:
   datasource:
-    url: jdbc:postgresql://postgres-event:5432/event_service
-    driverClassName: org.postgresql.Driver
-    username: ${EVENT_DB_USERNAME:event}
-    password: ${EVENT_DB_PASSWORD:password}
+    url: jdbc:postgresql://postgres:5432/event_db
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:event_service_user}
+    password: ${DB_PASSWORD:event_service_user}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
+  instance:
+    prefer-ip-address: true

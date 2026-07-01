@@ -1,6 +1,21 @@
 spring:
   datasource:
-    url: jdbc:mysql://mysql-payment:3306/payment_service
-    driverClassName: com.mysql.cj.jdbc.Driver
-    username: ${PAYMENT_DB_USERNAME:payment}
-    password: ${PAYMENT_DB_PASSWORD:password}
+    url: jdbc:postgresql://postgres:5432/payment_db
+    driver-class-name: org.postgresql.Driver
+    username: ${DB_USERNAME:payment_service_user}
+    password: ${DB_PASSWORD:payment_service_user}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: false
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://eureka-server:8761/eureka/
+
+  instance:
+    prefer-ip-address: true
