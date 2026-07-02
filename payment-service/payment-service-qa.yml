@@ -11,6 +11,10 @@ spring:
     properties:
       hibernate:
         format_sql: false
+        type:
+          enum:
+            ddl:
+              style: varchar
 
 eureka:
   client:
